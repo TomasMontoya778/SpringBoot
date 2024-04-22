@@ -9,6 +9,16 @@
             "projectName": "HolaMundo",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-PrimeraWebApplication<primeraWeb>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.riwi.primeraWeb.PrimeraWebApplication",
+            "projectName": "primeraWeb",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

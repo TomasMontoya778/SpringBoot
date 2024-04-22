@@ -49,7 +49,7 @@ public class CoderService {
     }
     // Método para actualizar un coder
     public Coder update(Long id, Coder coder){
-        // bucar el coder por id
+        // buscar el coder por id
         Coder objCoderDB = this.findById(id);
         // verificamos que el coder si exista
         if (objCoderDB == null) return null;
