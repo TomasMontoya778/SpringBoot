@@ -7,5 +7,5 @@ import java.util.List;
 
 
 public interface HomeWorkRepositoy extends JpaRepository<Homework, Long> {
-    List<Homework> findByTitulo(String titulo);
+    List<Homework> findByTituloContains(String titulo);
 }

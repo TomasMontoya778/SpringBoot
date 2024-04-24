@@ -10,6 +10,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Find Homework By title</title>
 </head>
 
@@ -17,9 +18,9 @@
     <h1 class="text-center fw-bold my-5">Ingresa el título de la Daily HomeWork</h1>
     <div class="container w-100 h-100 d-flex flex-column justify-content-center align-items-center">
         <div class="container d-flex justify-content-center align-items-center flex-column">
-            <form th:if="${homeWork != null}" th:action="${action}" method="get" class="w-50 bg-light rounded-3 p-5">
+            <form th:action="${action}" method="get" class="w-50 bg-light rounded-3 p-5">
                 <div class="form-floating mb-3">
-                    <input type="text" min="0" max="150" class="form-control" id="name" name="name"
+                    <input type="text" class="form-control" id="titulo" name="title"
                         placeholder="Título" />
                     <label for="Título">Título</label>
                 </div>
@@ -29,10 +30,10 @@
                 </div>
             </form>
         </div>
-        <table  class="table table-striped table-light table-hover text-center m-5">
+        <table th:if="${listHomeWork != null}"  class="table table-striped table-light table-hover text-center m-5">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
+                    <th >ID</th>
                     <th scope="col">Título</th>
                     <th scope="col">Descripción</th>
                     <th scope="col">Fecha de Creación</th>
@@ -41,17 +42,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td th:text="${homeWork.id}"></td>
-                    <td th:text="${homeWork.titulo}"></td>
-                    <td th:text="${homeWork.descripcion}"></td>
-                    <td th:text="${homeWork.fechaCreacion}"></td>
-                    <td th:text="${homeWork.horaCreacion}"></td>
-                    <td th:text="${homeWork.estado}"></td>
+                <tr th:each="temp : ${listHomeWork}">
+                    <td th:text="${temp.id}"></td>
+                    <td th:text="${temp.titulo}"></td>
+                    <td th:text="${temp.descripcion}"></td>
+                    <td th:text="${temp.fechaCreacion}"></td>
+                    <td th:text="${temp.horaCreacion}"></td>
+                    <td th:text="${temp.estado}"></td>
                     <td>
                         <div class="d-flex gap-2 d-flex justify-content-center align-items-center">
-                            <a th:href="@{/update/{id}(id=${homeWork.id})}" class="btn btn-primary">Editar</a>
-                            <a th:href="@{/delete/{id}(id=${homeWork.id})}" class="btn btn-danger">Eliminar</a>
+                            <a type="submit" data-mdb-button-init data-mdb-ripple-init
+                                class="btn btn-outline-primary ms-1" th:href="@{/update/{id}(id=${temp.id})}"><i class="bi bi-pencil-fill"></i></a>
+                                <a type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-danger"
+                                th:href="@{/delete/{id}(id=${temp.id})}"><i class="bi bi-trash"></i></a>
                         </div>
                     </td>
                 </tr>
