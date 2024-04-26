@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "390669f4-8210-4f08-85d3-6a561a367dad",
+		"name": "Api-Event",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34450327"
+	},
+	"item": [
+		{
+			"name": "save",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();\r",
+							"\r",
+							"pm.collectionVariables.set(\"id_evento\", response.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Prueba\",\r\n    \"fecha\": \"2024-03-30\",\r\n    \"ubicacion\": \"prueba\",\r\n    \"capacidad\": 1000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/evento/post",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"evento",
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/evento/get",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"evento",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/evento/{{id_evento}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"evento",
+						"{{id_evento}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/evento/b18aa4e6-94e0-440c-9728-919ca041800e",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"evento",
+						"b18aa4e6-94e0-440c-9728-919ca041800e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Juanes-Concierto\",\r\n    \"fecha\": \"2024-09-20\",\r\n    \"ubicacion\": \"La Macarena\",\r\n    \"capacidad\": 15000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/evento/d9e6aeb1-9ab7-4b0f-88fe-5d733eb0c6f2",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"evento",
+						"d9e6aeb1-9ab7-4b0f-88fe-5d733eb0c6f2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:8080/api-events/v1",
+			"type": "string"
+		},
+		{
+			"key": "id_evento",
+			"value": ""
+		}
+	]
+}
