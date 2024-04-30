@@ -3,6 +3,7 @@ package com.riwi.vacants.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ public class CompanyController {
             return ResponseEntity.ok(this.objCompanyService.getAll((page - 1), size));
     }
     @PostMapping
-    public ResponseEntity<CompanyResponse> save(@RequestBody CompanyRequest company){
+    public ResponseEntity<CompanyResponse> save(@Validated @RequestBody CompanyRequest company){
         return ResponseEntity.ok(this.objCompanyService.create(company));
     }
     @GetMapping(path = "/{id}")
@@ -44,7 +45,7 @@ public class CompanyController {
         return ResponseEntity.noContent().build();
     }
     @PutMapping(path = "/{id}")
-    public ResponseEntity<CompanyResponse> update(@PathVariable String id, @RequestBody CompanyRequest objCompanyRequest){
+    public ResponseEntity<CompanyResponse> update(@PathVariable String id,@Validated @RequestBody CompanyRequest objCompanyRequest){
         return ResponseEntity.ok(this.objCompanyService.update(id, objCompanyRequest));
     }
 }
