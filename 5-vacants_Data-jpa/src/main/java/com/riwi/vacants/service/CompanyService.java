@@ -16,6 +16,7 @@ import com.riwi.vacants.service.abstract_service.ICompanyService;
 import com.riwi.vacants.utils.dto.request.CompanyRequest;
 import com.riwi.vacants.utils.dto.response.CompanyResponse;
 import com.riwi.vacants.utils.dto.response.VancanteToCompanyResponse;
+import com.riwi.vacants.utils.exceptions.IdNotFoundExceptions;
 
 import lombok.AllArgsConstructor;
 
@@ -38,8 +39,9 @@ public class CompanyService implements ICompanyService {
 
     @Override
     public CompanyResponse update(String id, CompanyRequest request) {
-        // TODO Auto-generated method stub
-        return null;
+        Empresa objEmpresa = this.find(id);
+        Empresa objCompanyUpdate = this.requestEmpresa(request, objEmpresa);
+        return this.entityToResponse(this.objCompanyRepository.save(objCompanyUpdate));
     }
     
 
@@ -87,7 +89,7 @@ public class CompanyService implements ICompanyService {
         return empresa;
     }
     private Empresa find(String id){
-        return this.objCompanyRepository.findById(id).orElseThrow();
+        return this.objCompanyRepository.findById(id).orElseThrow(()-> new IdNotFoundExceptions("Empresa"));
     }
     
 }
