@@ -5,5 +5,5 @@ import com.riwi.vacants.utils.dto.request.VacanteRequest;
 import com.riwi.vacants.utils.dto.response.VacanteResponse;
 
 public interface IVacanteService extends CrudService<VacanteRequest, VacanteResponse, Long>{
-
+    public VacanteResponse getById(Long id);
 }
