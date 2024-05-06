@@ -1,5 +1,6 @@
 package com.riwi.vacants.service;
 
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,7 +44,7 @@ public class VacanteService implements IVacanteService{
         vacante.setStatus(StateVacant.ACTIVE);
         return vacante;
     }
-    
+
     private VacanteResponse entityToResponse (Vacante vacante){
         VacanteResponse response = new VacanteResponse();
         BeanUtils.copyProperties(vacante, response);
@@ -54,11 +55,11 @@ public class VacanteService implements IVacanteService{
         response.setEmpresa(objCompanyToVacanteResponse);
         return response;
     }
-
+    
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        
+        Vacante vacante = this.find(id);
+        this.objVacanteRepository.delete(vacante);
     }
 
     @Override
@@ -71,17 +72,25 @@ public class VacanteService implements IVacanteService{
         return this.objVacanteRepository.findAll(objPageRequest).map(this::entityToResponse);
     }
     
+    private Vacante find(Long id){
+        return this.objVacanteRepository.findById(id).orElseThrow(()-> new IdNotFoundExceptions("Vacante"));
+    } 
 
     @Override
     public VacanteResponse getById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.entityToResponse(this.find(id));
     }
 
     @Override
     public VacanteResponse update(Long id, VacanteRequest request) {
-        // TODO Auto-generated method stub
-        return null;
+        Vacante objVacante = this.find(id);
+        Empresa objCompany = this.objCompanyRepository.findById(request.getCompany_id()).orElseThrow(() -> new IdNotFoundExceptions("Company"));
+        Vacante objVacanteUpdate = this.requestToEntity(request, objVacante);
+        if(request.getStatus() != null){
+            objVacante.setStatus(request.getStatus());
+        }
+        objVacante.setEmpresa(objCompany);
+        return this.entityToResponse(this.objVacanteRepository.save(objVacanteUpdate));
     }
 
 }
