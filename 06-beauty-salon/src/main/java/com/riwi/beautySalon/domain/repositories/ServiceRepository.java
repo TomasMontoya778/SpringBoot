@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.riwi.beautySalon.domain.entities.ServicesEntity;
 @Repository
 public interface ServiceRepository extends JpaRepository<ServicesEntity, Long>{
-    @Query(value = "select s from service s where s.price between :min and :max")
+    @Query(value = "select s from services s where s.price between :min and :max")
     public List<ServicesEntity> selectBetweenPrice(BigDecimal min, BigDecimal max);
     @Query(value = "select s from services s where s.name like :name")
     public List<ServicesEntity> findByNameContaining(String name);

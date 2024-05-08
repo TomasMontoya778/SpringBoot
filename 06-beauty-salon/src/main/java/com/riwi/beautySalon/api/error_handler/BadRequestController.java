@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,6 +32,23 @@ public class BadRequestController {
             error.put("Field", e.getField());/* Agrega al map en dónde ocurrió el error */
             errors.add(error);
         });
+        return ErrorsResponse.builder()
+        .code(HttpStatus.BAD_REQUEST.value()) // 400
+        .status(HttpStatus.BAD_REQUEST.name()) // BAD_REQUEST
+        .errors(errors). /* [
+            {
+                "field": "mal", 
+                "error": "mal"
+            }
+        ] */
+        build();
+    }
+    @ExceptionHandler(BadRequestException.class)
+    public BaseErrorResponse handlerError(BadRequestException exception){
+        List<Map<String, String>> errors = new ArrayList<>();
+        Map<String, String> error = new HashMap<>();
+        error.put("id", exception.getMessage());
+        errors.add(error);
         return ErrorsResponse.builder()
         .code(HttpStatus.BAD_REQUEST.value()) // 400
         .status(HttpStatus.BAD_REQUEST.name()) // BAD_REQUEST

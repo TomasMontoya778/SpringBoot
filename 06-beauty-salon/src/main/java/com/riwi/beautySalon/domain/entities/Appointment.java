@@ -16,7 +16,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "appointment")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,7 @@ public class ServiceRequest {
     @Size(min = 0, max = 100)
     private String name;
     private String description;
-    @NotBlank(message = "El precio es requerido")
+    @NotNull(message = "El precio es requerido")
     @DecimalMin(
         value = "10.99",
         message = "El valor debe ser mayor a 10.99 dólares"
